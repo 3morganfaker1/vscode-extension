@@ -1,0 +1,92 @@
+<html>
+
+<head>
+<!-- import Vue.js -->
+<script src="https://vuejs.org/js/vue.min.js"></script>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"></link>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/form-create@1.4.4/district/province_city_area.js">
+</script>
+<!-- import form-create -->
+<script src="https://unpkg.com/@form-create/element-ui/dist/form-create.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <form-create v-model="fApi" :rule="rule" :option="option" @goods-name-change="change" />
+    </div>
+    <script>
+        var maker = formCreate.maker;
+
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                formData: {},
+                rule: mock(),
+                fApi: {},
+                option: {
+                    //显示表单重置按钮
+                    resetBtn: true,
+                    //表单提交事件
+                    onSubmit: function (formData) {
+                        alert(JSON.stringify(formData));
+                        //按钮进入提交状态
+                        vm.fApi.btn.loading();
+                        //重置按钮禁用
+                        vm.fApi.resetBtn.disabled();
+                        //按钮进入可点击状态
+                        vm.fApi.btn.loading(false);
+                       
+                    },
+                    mounted: () => {
+                    }
+                }
+            },
+            watch: {
+                'formData.address': {
+                    handler: function (n) {
+                    },
+                    deep: true
+                }
+            },
+            methods: {
+                change: function (...arg) {
+                    console.log(arg);
+                }
+            },
+            mounted: function () {
+                console.log(this.fApi.formData());
+                //动态添加表单元素
+                //$f.append($r, 'pic');
+            }
+        });
+
+        function mock() {
+            var data='[{"type":"input","field":"thinking","title":"输入框","info":"","props":{"rows":3,"type":"textarea"},"_fc_drag_tag":"input","hidden":false,"display":true},{"type":"select","field":"type","title":"选择器","info":"","effect":{"fetch":""},"props":{"multiple":true,"filterable":true},"options":[{"value":"1","label":"选项1"},{"value":"2","label":"选项2"}],"_fc_drag_tag":"select","hidden":false,"display":true},{"type":"upload","field":"img","title":"上传","info":"","props":{"action":"","onSuccess":"[[FORM-CREATE-PREFIX-function(e,t){t.url=e}-FORM-CREATE-SUFFIX]]","withCredentials":true,"limit":1},"_fc_drag_tag":"upload","hidden":false,"display":true,"value":""}]'
+            return JSON.parse(data);
+        }
+
+        // $r = maker.upload('产品主图', 'logo', 'http://img1.touxiang.cn/uploads/20131030/30-075657_191.jpg').props({
+        //     "action": "",
+        //     "maxLength": 1,
+        //     "multiple": false,
+        //     "max": 0,
+        //     "type": "select",
+        //     "uploadType": "image",
+        //     "name": "file",
+        //     "onSuccess": function () {
+        //         return 'http://img1.touxiang.cn/uploads/20131030/30-075657_191.jpg';
+        //     }
+        // }).validate({
+        //     required: true,
+        //     type: 'array',
+        //     min: 1,
+        //     message: '请上传1张图片',
+        //     trigger: 'change'
+        // });
+    </script>
+</body>
+
+</html>

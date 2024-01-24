@@ -1,0 +1,76 @@
+{
+	"name": "niepan-vscode-extension",
+	"description": "涅槃之路vscode插件",
+	"version": "3.0.5",
+	"publisher": "zouqi",
+	"repository": "https://gitlab.internal.feel.ac.cn:8443/zhf97/niepan-vs-code",
+	"engines": {
+		"vscode": "^1.32.0"
+	},
+	"activationEvents": [
+		"*"
+	],
+	"main": "./src/extension.js",
+	"contributes": {
+		"views": {
+			"explorer": [
+				{
+					"id": "niepan.menu",
+					"name": "涅槃插件",
+					"contextualTitle": "涅槃插件"
+				}
+			]
+		},
+		"commands": [
+			{
+				"command": "niepan.login",
+				"title": "登录涅槃"
+			},
+			{
+				"command": "niepan.logout",
+				"title": "登出涅槃"
+			},
+			{
+				"command": "niepan.startexam",
+				"title": "开始作业"
+			},
+			{
+				"command": "niepan.resetworkspace",
+				"title": "恢复至原始状态"
+			},
+			{
+				"command": "niepan.displayquestion",
+				"title": "显示问题详情"
+			},
+			{
+				"command": "niepan.getstate",
+				"title": "显示当前会话模式"
+			},
+			{
+				"command": "niepan.submit",
+				"title": "结束并提交"
+			},
+			{
+				"command": "niepan.createexam",
+				"title": "创建考试"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run esbuild-base -- --minify",
+		"esbuild-base": "esbuild ./src/extension.js --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+		"esbuild": "npm run esbuild-base -- --sourcemap",
+		"esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+		"test-compile": "tsc -p ./"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.32.0"
+	},
+	"dependencies": {
+		"esbuild": "^0.13.15",
+		"https": "^1.0.0",
+		"request": "^2.88.2",
+		"request-promise": "^4.2.6",
+		"vsce": "^2.15.0"
+	}
+}
