@@ -22,5 +22,7 @@
 ```bash
 git clone git@git.corp.kuaishou.com:mfe/mp/analysis-tools.git
 
-### 其他
-无
+### 打包.vsix
+vsce package
+
+### 在vscode中引入使用
